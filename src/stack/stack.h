@@ -1,8 +1,6 @@
 #pragma once
 
 #include <cstdint>
-#include <cstddef>
-#include <variant>
 #include <cassert>
 
 /* Declaration */
@@ -30,7 +28,7 @@ class Stack {
 
         T* top();
         void push(const T  &ele);
-        void push(const T &&ele);
+        void push(T &&ele);
         void pop();
         bool empty() const;
         size_t size() const;
@@ -93,11 +91,11 @@ void Stack<T>::push(const T &ele) {
 }
 
 template <typename T>
-void Stack<T>::push(const T &&ele) {
+void Stack<T>::push(T &&ele) {
 
     assert(this->head != nullptr);
 
-    StackNode<T> *new_node = StackNode(std::move(ele), this->head->next);
+    StackNode<T> *new_node = new StackNode<T>(std::move(ele), this->head->next);
     this->head->next = new_node;
     ++ (this->num_nodes);
     return;

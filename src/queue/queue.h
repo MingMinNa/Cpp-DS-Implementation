@@ -1,8 +1,6 @@
 #pragma once
 
 #include <cstdint>
-#include <cstddef>
-#include <variant>
 #include <cassert>
 
 /* Declaration */
@@ -31,7 +29,7 @@ class Queue {
         T* front();
         T* back();
         void enqueue(const T  &ele);
-        void enqueue(const T &&ele);
+        void enqueue(T &&ele);
         void dequeue();
         bool empty() const;
         size_t size() const;
@@ -87,7 +85,7 @@ void Queue<T>::enqueue(const T &ele) {
 }
 
 template <typename T>
-void Queue<T>::enqueue(const T &&ele) {
+void Queue<T>::enqueue(T &&ele) {
     // TODO
 }
 

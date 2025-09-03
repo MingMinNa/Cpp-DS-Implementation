@@ -1,10 +1,8 @@
 #pragma once
 
 #include <cstdint>
-#include <cstddef>
-#include <variant>
 #include <cassert>
-#include <iostream>
+#include <fstream>
 
 /* Declaration */
 namespace ds_imp {
@@ -31,7 +29,7 @@ class LinkedList {
 
         T* search_node(const T &ele);
         void insert_node(const T  &ele);
-        void insert_node(const T &&ele);
+        void insert_node(T &&ele);
         void delete_node(const T &ele);
         void update_node(const T &ele, const T &new_ele);
         void traversal(std::ostream& os);
@@ -115,7 +113,7 @@ void LinkedList<T>::insert_node(const T  &ele) {
 }
 
 template <typename T>
-void LinkedList<T>::insert_node(const T &&ele) {
+void LinkedList<T>::insert_node(T &&ele) {
 
     assert(this->head != nullptr);
 

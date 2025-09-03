@@ -20,7 +20,7 @@ class Element {
         Element& operator=(const Element &other);
 
         /* Move Constructor & Move Assignment */
-        Element(Element&& other) noexcept;            
+        Element(Element &&other) noexcept;            
         Element& operator=(Element &&other) noexcept;
 
         /* Other operators */

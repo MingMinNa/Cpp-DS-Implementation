@@ -75,7 +75,7 @@ Stack<T>::~Stack() {
     */
 
     // iterative destruction
-    auto curr = this->head, prev = nullptr;
+    decltype(this->head) curr = this->head, prev = nullptr;
 
     while(curr != nullptr) {
         prev = curr;

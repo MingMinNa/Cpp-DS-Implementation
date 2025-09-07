@@ -51,7 +51,7 @@ namespace ds_imp {
         this->num_clusters = num_members;
         this->rule = rule;
 
-        for(auto i = 0; i < num_members; ++i)
+        for(decltype(num_members) i = 0; i < num_members; ++i)
             (this->parent)[i] = -1;
     }
 

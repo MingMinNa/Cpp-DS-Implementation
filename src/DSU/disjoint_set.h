@@ -2,9 +2,7 @@
 
 #include <cstdint>
 #include <cassert>
-#include <iostream>
 #include <stdexcept>
-#include "../stack/stack.h"
 
 /* Declaration */
 namespace ds_imp {
@@ -18,20 +16,22 @@ class DSU {
 
     public:
         DSU() = delete;
-        DSU(uint16_t num_members, DSU_Rule rule);
+        DSU(uint32_t num_members, DSU_Rule rule);
         ~DSU();
 
-        uint16_t find_root(uint16_t index);
-        void union_root(uint16_t index_a, uint16_t index_b);
-        bool is_same(uint16_t index_a, uint16_t index_b);
+        uint32_t find_root(uint32_t index);
+        void union_root(uint32_t index_a, uint32_t index_b);
+        bool is_same(uint32_t index_a, uint32_t index_b);
 
-        uint16_t get_clusters_num() const;
-        uint16_t get_members_num() const;
+        uint32_t get_clusters_num() const;
+        uint32_t get_members_num() const;
+
+        static const uint32_t MAX_MEMBERS_NUM = static_cast<uint32_t>(1e9);
     
     private:
         int32_t *parent;
-        uint16_t num_clusters;
-        uint16_t num_members;
+        uint32_t num_clusters;
+        uint32_t num_members;
         DSU_Rule rule;
 };
 
@@ -40,37 +40,41 @@ class DSU {
 /* Implementation */
 namespace ds_imp { 
 
-    DSU::DSU(uint16_t num_members, DSU_Rule rule) {
+    DSU::DSU(uint32_t num_members, DSU_Rule rule) {
+
+        if(num_members == 0 || num_members > MAX_MEMBERS_NUM) {
+            std::runtime_error("The number of members is out of range");
+        }
 
         this->parent = new int32_t[num_members];
         this->num_members = num_members;
         this->num_clusters = num_members;
         this->rule = rule;
 
-        for(auto i = 0; i < num_members; ++i)
+        for(decltype(num_members) i = 0; i < num_members; ++i)
             (this->parent)[i] = -1;
     }
 
     DSU::~DSU() {
         if(parent != nullptr)   
-            delete parent;
+            delete [] parent;
     }
 
-    uint16_t DSU::find_root(uint16_t index) {
+    uint32_t DSU::find_root(uint32_t index) {
 
         assert(this->parent != nullptr);
 
         if(index >= this->num_members)
-            std::runtime_error("Index out of range");
+            std::runtime_error("The index is out of range");
 
         if(this->parent[index] < 0)
             return index;
 
-        uint16_t root = this->find_root(parent[index]);
+        uint32_t root = this->find_root(parent[index]);
         return parent[index] = root;
     }
 
-    void DSU::union_root(uint16_t index_a, uint16_t index_b) {
+    void DSU::union_root(uint32_t index_a, uint32_t index_b) {
 
         auto root_a = this->find_root(index_a);
         auto root_b = this->find_root(index_b);
@@ -99,15 +103,15 @@ namespace ds_imp {
         return;
     }
 
-    bool DSU::is_same(uint16_t index_a, uint16_t index_b) {
+    bool DSU::is_same(uint32_t index_a, uint32_t index_b) {
         return find_root(index_a) == find_root(index_b);
     }
 
-    uint16_t DSU::get_clusters_num() const {
+    uint32_t DSU::get_clusters_num() const {
         return this->num_clusters;
     }
 
-    uint16_t DSU::get_members_num() const {
+    uint32_t DSU::get_members_num() const {
         return this->num_members;
     }
 }

@@ -78,7 +78,7 @@ LinkedList<T>::~LinkedList() {
     */
 
     // iterative destruction
-    auto curr = this->head, prev = nullptr;
+    decltype(this->head) curr = this->head, prev = nullptr;
 
     while(curr != nullptr) {
         prev = curr;
@@ -92,8 +92,7 @@ T* LinkedList<T>::search_node(const T &ele) {
 
     assert(this->head != nullptr);
 
-    auto prev = this->head;
-    auto curr = prev->next;
+    decltype(this->head) prev = this->head, curr = prev->next;
 
     while(curr != nullptr && curr->element < ele) {
         prev = curr;
@@ -111,8 +110,7 @@ void LinkedList<T>::insert_node(const T  &ele) {
     
     assert(this->head != nullptr);
 
-    auto prev = this->head;
-    auto curr = prev->next;
+    decltype(this->head) prev = this->head, curr = prev->next;
 
     while(curr != nullptr && curr->element < ele) {
         prev = curr;
@@ -130,8 +128,7 @@ void LinkedList<T>::insert_node(T &&ele) {
 
     assert(this->head != nullptr);
 
-    auto prev = this->head;
-    auto curr = prev->next;
+    decltype(this->head) prev = this->head, curr = prev->next;
 
     while(curr != nullptr && curr->element < ele) {
         prev = curr;
@@ -149,8 +146,7 @@ void LinkedList<T>::delete_node(const T &ele) {
 
     assert(this->head != nullptr);
 
-    auto prev = this->head;
-    auto curr = prev->next;
+    decltype(this->head) prev = this->head, curr = prev->next;
 
     while(curr != nullptr && curr->element < ele) {
         prev = curr;

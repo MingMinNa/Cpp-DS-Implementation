@@ -3,12 +3,13 @@ CFLAGS := -Wall -O2 -std=c++23
 
 SRC_DIR := src
 BUILD_DIR := build
+MAIN := main
 TARGET := main
 
-SRCS := main.cpp \
+SRCS = $(MAIN).cpp \
     $(SRC_DIR)/element.cpp \
     $(wildcard $(SRC_DIR)/**/*.cpp)
-OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
 
 $(TARGET): $(OBJS)
 	$(GCC) $(CFLAGS) $^ -o $@

@@ -7,3 +7,4 @@
 #include "DSU/disjoint_set.h"
 #include "PQ/priority_queue.h"
 #include "MMH/mmh.h"
+#include "SMMH/smmh.h"

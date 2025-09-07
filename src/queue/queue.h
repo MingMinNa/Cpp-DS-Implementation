@@ -53,9 +53,11 @@ QueueNode<T>::QueueNode(T &&ele, QueueNode<T>* next) : element(std::move(ele)), 
 
 template <typename T>
 QueueNode<T>::~QueueNode() {
+    /* // recursive destruction
     if(this->next != nullptr) {
         delete this->next;
     }
+    */
 }
 
 /* Queue */
@@ -66,7 +68,20 @@ Queue<T>::Queue() {
 
 template <typename T>
 Queue<T>::~Queue() {
-    // TODO
+    /* // recursive destruction
+    if(this->head != nullptr)
+        delete this->head;
+    return;
+    */
+
+    // iterative destruction
+    auto curr = this->head, prev = nullptr;
+
+    while(curr != nullptr) {
+        prev = curr;
+        curr = curr->next;
+        delete prev;
+    }
 }
 
 template <typename T>

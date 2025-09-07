@@ -55,9 +55,11 @@ ListNode<T>::ListNode(T &&ele, ListNode<T>* next) : element(std::move(ele)), nex
 
 template <typename T>
 ListNode<T>::~ListNode() {
+    /* // recursive destruction
     if(this->next != nullptr) {
         delete this->next;
     }
+    */
 }
 
 /* LinkedList */
@@ -69,9 +71,20 @@ LinkedList<T>::LinkedList() {
 
 template <typename T>
 LinkedList<T>::~LinkedList() {
+    /* // recursive destruction
     if(this->head != nullptr)
         delete this->head;
     return;
+    */
+
+    // iterative destruction
+    auto curr = this->head, prev = nullptr;
+
+    while(curr != nullptr) {
+        prev = curr;
+        curr = curr->next;
+        delete prev;
+    }
 }
 
 template <typename T>

@@ -52,9 +52,11 @@ StackNode<T>::StackNode(T &&ele, StackNode<T>* next) : element(std::move(ele)), 
 
 template <typename T>
 StackNode<T>::~StackNode() {
+    /* // recursive destruction
     if(this->next != nullptr) {
         delete this->next;
     }
+    */
 }
 
 /* Stack */
@@ -66,9 +68,20 @@ Stack<T>::Stack() {
 
 template <typename T>
 Stack<T>::~Stack() {
+    /* // recursive destruction
     if(this->head != nullptr)
         delete this->head;
     return;
+    */
+
+    // iterative destruction
+    auto curr = this->head, prev = nullptr;
+
+    while(curr != nullptr) {
+        prev = curr;
+        curr = curr->next;
+        delete prev;
+    }
 }
 
 template <typename T>

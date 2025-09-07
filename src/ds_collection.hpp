@@ -8,3 +8,5 @@
 #include "PQ/priority_queue.hpp"
 #include "MMH/mmh.hpp"
 #include "SMMH/smmh.hpp"
+#include "deque/deque.hpp"
+#include "deap/deap.hpp"

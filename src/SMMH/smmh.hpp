@@ -189,7 +189,7 @@ inline bool SMMH<T>::empty() const {
 
 template <typename T> 
 inline size_t SMMH<T>::capacity() const {
-    return (arr_size - 1);
+    return (arr_size - 2);
 }
 
 template <typename T> 

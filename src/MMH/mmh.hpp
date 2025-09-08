@@ -3,10 +3,9 @@
 #include "../utils.hpp"
 #include <cstdint>
 #include <cassert>
-#include <functional>
-#include <stdexcept>
 #include <fstream>
 #include <iomanip>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -14,12 +13,14 @@ namespace ds_imp {
 template <typename T> 
 class MMH {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         MMH();
         ~MMH();
 
-        T* get_min();
-        T* get_max();
+        Result get_min();
+        Result get_max();
         void insert(const T  &ele);
         void insert(T &&ele);
         void delete_min();
@@ -63,15 +64,15 @@ MMH<T>::~MMH() {
 }
 
 template <typename T> 
-T* MMH<T>::get_min() {
+MMH<T>::Result MMH<T>::get_min() {
 
     if(empty()) 
         return nullptr;
-    return arr[1];
+    return *(arr[1]);
 }
 
 template <typename T> 
-T* MMH<T>::get_max() {
+MMH<T>::Result MMH<T>::get_max() {
 
     if(empty()) 
         return nullptr;
@@ -82,7 +83,7 @@ T* MMH<T>::get_max() {
     for(size_t i = 1; i <= n; ++i) {
         max_node = (*max_node > *arr[i]) ? (max_node) : (arr[i]);
     }
-    return max_node;
+    return *max_node;
 }
 
 template <typename T> 

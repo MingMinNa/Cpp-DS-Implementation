@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <cassert>
 #include <fstream>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -24,12 +25,14 @@ struct DequeNode {
 template <typename T> 
 class Deque {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         Deque();
         ~Deque();
 
-        T* front();
-        T* back();
+        Result front();
+        Result back();
         void push_front(const T  &ele);
         void push_front(T &&ele);
         void push_back(const T  &ele);
@@ -99,19 +102,19 @@ Deque<T>::~Deque() {
 }
 
 template <typename T>
-T* Deque<T>::front() {
+Deque<T>::Result Deque<T>::front() {
 
     if(empty())
         return nullptr;
-    return &(head->next->element);
+    return head->next->element;
 }
 
 template <typename T>
-T* Deque<T>::back() {
+Deque<T>::Result Deque<T>::back() {
     
     if(empty())
         return nullptr;
-    return &(tail->prev->element);
+    return tail->prev->element;
 }
 
 template <typename T>

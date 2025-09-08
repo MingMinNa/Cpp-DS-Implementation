@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cassert>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -22,11 +23,13 @@ struct StackNode {
 template <typename T> 
 class Stack {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         Stack();
         ~Stack();
 
-        T* top();
+        Result top();
         void push(const T  &ele);
         void push(T &&ele);
         void pop();
@@ -85,11 +88,11 @@ Stack<T>::~Stack() {
 }
 
 template <typename T>
-T* Stack<T>::top() {
+Stack<T>::Result Stack<T>::top() {
 
     if(this->head == nullptr || this->head->next == nullptr)
         return nullptr;
-    return &(this->head->next->element);
+    return this->head->next->element;
 }
 
 template <typename T>

@@ -3,10 +3,9 @@
 #include "../utils.hpp"
 #include <cstdint>
 #include <cassert>
-#include <functional>
-#include <stdexcept>
 #include <fstream>
 #include <iomanip>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -14,12 +13,14 @@ namespace ds_imp {
 template <typename T> 
 class Deap {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         Deap();
         ~Deap();
 
-        T* get_min();
-        T* get_max();
+        Result get_min();
+        Result get_max();
         void insert(const T  &ele);
         void insert(T &&ele);
         void delete_min();
@@ -63,21 +64,21 @@ Deap<T>::~Deap() {
 }
 
 template <typename T> 
-T* Deap<T>::get_min() {
+Deap<T>::Result Deap<T>::get_min() {
 
     if(empty()) 
         return nullptr;
-    return arr[2];
+    return *(arr[2]);
 }
 
 template <typename T> 
-T* Deap<T>::get_max() {
+Deap<T>::Result Deap<T>::get_max() {
 
     if(empty()) 
         return nullptr;
     else if(num_nodes == 1)
-        return arr[2];
-    return arr[3];
+        return *(arr[2]);
+    return *(arr[3]);
 }
 
 template <typename T> 

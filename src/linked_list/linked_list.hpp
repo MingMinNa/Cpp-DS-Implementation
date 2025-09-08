@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <cassert>
 #include <fstream>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -23,11 +24,13 @@ struct ListNode {
 template <typename T> 
 class LinkedList {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         LinkedList();
         ~LinkedList();
 
-        T* search_node(const T &ele);
+        Result search_node(const T &ele);
         void insert_node(const T  &ele);
         void insert_node(T &&ele);
         void delete_node(const T &ele);
@@ -88,7 +91,7 @@ LinkedList<T>::~LinkedList() {
 }
 
 template <typename T>
-T* LinkedList<T>::search_node(const T &ele) {
+LinkedList<T>::Result LinkedList<T>::search_node(const T &ele) {
 
     assert(this->head != nullptr);
 
@@ -100,7 +103,7 @@ T* LinkedList<T>::search_node(const T &ele) {
     }
 
     if(curr != nullptr && curr->element == ele) {
-        return &(curr->element);
+        return curr->element;
     }
     return nullptr;
 }
@@ -166,7 +169,9 @@ void LinkedList<T>::update_node(const T &ele, const T &new_ele) {
     
     assert(this->head != nullptr);
 
-    if(search_node(ele) == nullptr) return;
+    auto res = search_node(ele);
+    
+    if(std::get_if<T>(&res) == nullptr) return;
 
     delete_node(ele);
     insert_node(new_ele);

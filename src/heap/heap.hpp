@@ -10,13 +10,13 @@
 namespace ds_imp {
 
 template <typename T, typename CMP = std::less<T>> 
-class PQ {
+class Heap {
 
     using Result = std::variant<std::nullptr_t, T>;
 
     public:
-        PQ(CMP cmp = CMP());
-        ~PQ();
+        Heap(CMP cmp = CMP());
+        ~Heap();
 
         Result top();
         void push(const T  &ele);
@@ -39,7 +39,7 @@ class PQ {
 namespace ds_imp {
 
 template <typename T, typename CMP> 
-PQ<T,CMP>::PQ(CMP cmp) {
+Heap<T,CMP>::Heap(CMP cmp) {
     this->cmp       = cmp;
     this->num_nodes = 0;
     this->arr_size  = 4;
@@ -47,7 +47,7 @@ PQ<T,CMP>::PQ(CMP cmp) {
 }
 
 template <typename T, typename CMP> 
-PQ<T,CMP>::~PQ() {
+Heap<T,CMP>::~Heap() {
 
     for(size_t i = 0; i < arr_size; ++i) {
         if(arr[i] != nullptr)
@@ -57,7 +57,7 @@ PQ<T,CMP>::~PQ() {
 }
 
 template <typename T, typename CMP> 
-PQ<T,CMP>::Result PQ<T,CMP>::top() {
+Heap<T,CMP>::Result Heap<T,CMP>::top() {
 
     if(empty()) 
         return nullptr;
@@ -65,7 +65,7 @@ PQ<T,CMP>::Result PQ<T,CMP>::top() {
 }
 
 template <typename T, typename CMP> 
-void PQ<T,CMP>::push(const T  &ele) {
+void Heap<T,CMP>::push(const T  &ele) {
 
     if(num_nodes + 1 >= arr_size) {
         arr = double_arr<T*>(arr, arr_size);
@@ -88,7 +88,7 @@ void PQ<T,CMP>::push(const T  &ele) {
 }
 
 template <typename T, typename CMP> 
-void PQ<T,CMP>::push(T &&ele) {
+void Heap<T,CMP>::push(T &&ele) {
 
     if(num_nodes + 1 >= arr_size) {
         arr = double_arr<T*>(arr, arr_size);
@@ -110,7 +110,7 @@ void PQ<T,CMP>::push(T &&ele) {
 }
 
 template <typename T, typename CMP> 
-void PQ<T,CMP>::pop() {
+void Heap<T,CMP>::pop() {
 
     if(empty())
         return;
@@ -141,17 +141,17 @@ void PQ<T,CMP>::pop() {
 }
 
 template <typename T, typename CMP> 
-inline bool PQ<T,CMP>::empty() const {
+inline bool Heap<T,CMP>::empty() const {
     return (size() == 0);
 }
 
 template <typename T, typename CMP> 
-inline size_t PQ<T,CMP>::capacity() const {
+inline size_t Heap<T,CMP>::capacity() const {
     return (arr_size - 1);
 }
 
 template <typename T, typename CMP> 
-inline size_t PQ<T,CMP>::size() const {
+inline size_t Heap<T,CMP>::size() const {
     return num_nodes;
 }
 

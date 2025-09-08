@@ -10,3 +10,4 @@
 #include "SMMH/smmh.hpp"
 #include "deque/deque.hpp"
 #include "deap/deap.hpp"
+#include "BST/bst.hpp"

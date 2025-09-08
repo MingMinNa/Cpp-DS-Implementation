@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iomanip>
 #include <utility>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -32,13 +33,14 @@ template <typename T>
 class BST {
 
     using Pair_Result = std::pair<BST_Node<T>*, BST_Node<T>*>;
+    using Result = std::variant<std::nullptr_t, T>;
 
     public:
         BST();
         ~BST();
 
-        T* get_min();
-        T* get_max();
+        Result get_min();
+        Result get_max();
         Pair_Result search_node(const T &ele);
         void insert_node(const T  &ele);
         void insert_node(T &&ele);
@@ -121,19 +123,19 @@ BST<T>::~BST() {
 }
 
 template <typename T> 
-T* BST<T>::get_min() {
+BST<T>::Result BST<T>::get_min() {
 
     if(empty())
         return nullptr;
-    return &(min_ptr->element);
+    return min_ptr->element;
 }
 
 template <typename T> 
-T* BST<T>::get_max() {
+BST<T>::Result BST<T>::get_max() {
 
     if(empty())
         return nullptr;
-    return &(max_ptr->element);
+    return max_ptr->element;
 }
 
 template <typename T> 

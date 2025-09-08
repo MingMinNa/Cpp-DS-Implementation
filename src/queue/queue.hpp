@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cassert>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -22,12 +23,14 @@ struct QueueNode {
 template <typename T> 
 class Queue {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         Queue();
         ~Queue();
 
-        T* front();
-        T* back();
+        Result front();
+        Result back();
         void enqueue(const T  &ele);
         void enqueue(T &&ele);
         void dequeue();
@@ -85,12 +88,12 @@ Queue<T>::~Queue() {
 }
 
 template <typename T>
-T* Queue<T>::front() {
+Queue<T>::Result Queue<T>::front() {
     // TODO
 }
 
 template <typename T>
-T* Queue<T>::back() {
+Queue<T>::Result Queue<T>::back() {
     // TODO
 }
 

@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <cassert>
 #include <functional>
-#include <stdexcept>
+#include <variant>
 
 /* Declaration */
 namespace ds_imp {
@@ -12,11 +12,13 @@ namespace ds_imp {
 template <typename T, typename CMP = std::less<T>> 
 class PQ {
 
+    using Result = std::variant<std::nullptr_t, T>;
+
     public:
         PQ(CMP cmp = CMP());
         ~PQ();
 
-        T* top();
+        Result top();
         void push(const T  &ele);
         void push(T &&ele);
         void pop();
@@ -55,11 +57,11 @@ PQ<T,CMP>::~PQ() {
 }
 
 template <typename T, typename CMP> 
-T* PQ<T,CMP>::top() {
+PQ<T,CMP>::Result PQ<T,CMP>::top() {
 
     if(empty()) 
         return nullptr;
-    return arr[1];
+    return *(arr[1]);
 }
 
 template <typename T, typename CMP> 

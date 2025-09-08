@@ -43,7 +43,7 @@ namespace ds_imp {
     DSU::DSU(uint32_t num_members, DSU_Rule rule) {
 
         if(num_members == 0 || num_members > MAX_MEMBERS_NUM) {
-            std::runtime_error("The number of members is out of range");
+            throw std::out_of_range("The number of members is out of range");
         }
 
         this->parent = new int32_t[num_members];
@@ -65,7 +65,7 @@ namespace ds_imp {
         assert(this->parent != nullptr);
 
         if(index >= this->num_members)
-            std::runtime_error("The index is out of range");
+            throw std::out_of_range("The index is out of range");
 
         if(this->parent[index] < 0)
             return index;

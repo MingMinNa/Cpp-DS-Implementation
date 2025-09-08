@@ -11,3 +11,4 @@
 #include "deque/deque.hpp"
 #include "deap/deap.hpp"
 #include "BST/bst.hpp"
+#include "HBLT/leftist.hpp"

@@ -57,3 +57,12 @@ inline const Element MIN_ELEMENT(INT32_MIN);
 inline const Element DEFAULT_ELEMENT(0);
 
 } // namespace ds_imp
+
+namespace std {
+    template <>
+    struct hash<ds_imp::Element> {
+        size_t operator()(const ds_imp::Element& p) const noexcept {
+            return hash<decltype(p.get())>()(p.get());
+        }
+    };
+}

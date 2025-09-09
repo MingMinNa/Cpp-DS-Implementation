@@ -39,6 +39,7 @@ class Queue {
     
     private:
         QueueNode<T> *head;
+        QueueNode<T> *tail;
         size_t num_nodes;
 };
 
@@ -66,7 +67,10 @@ QueueNode<T>::~QueueNode() {
 /* Queue */
 template <typename T>
 Queue<T>::Queue() {
-    // TODO
+
+    this->num_nodes = 0;
+    this->head = new QueueNode<T>();
+    this->tail = head;
 }
 
 template <typename T>
@@ -89,37 +93,62 @@ Queue<T>::~Queue() {
 
 template <typename T>
 Queue<T>::Result Queue<T>::front() {
-    // TODO
+    
+    if(empty())
+        return nullptr;
+    return head->next->element;
 }
 
 template <typename T>
 Queue<T>::Result Queue<T>::back() {
-    // TODO
+    
+    if(empty())
+        return nullptr;
+    return tail->element;
 }
 
 template <typename T>
 void Queue<T>::enqueue(const T &ele) {
-    // TODO
+    
+    auto new_node = new QueueNode<T>(ele);
+    tail->next = new_node;
+    tail = new_node;
+    num_nodes ++;
 }
 
 template <typename T>
 void Queue<T>::enqueue(T &&ele) {
-    // TODO
+    
+    auto new_node = new QueueNode<T>(std::move(ele));
+    tail->next = new_node;
+    tail = new_node;
+    num_nodes ++;
 }
 
 template <typename T>
 void Queue<T>::dequeue() {
-    // TODO
+    
+    if(empty())
+        return;
+    auto temp_node = head->next;
+    head->next = temp_node->next;
+    num_nodes --;
+
+    if(head->next == nullptr)
+        tail = head;
+    
+    temp_node->next = nullptr;
+    delete temp_node;
 }
 
 template <typename T>
 inline bool Queue<T>::empty() const {
-    // TODO
+    return (size() == 0);
 }
 
 template <typename T>
 inline size_t Queue<T>::size() const {
-    // TODO
+    return num_nodes;
 }
 
 }

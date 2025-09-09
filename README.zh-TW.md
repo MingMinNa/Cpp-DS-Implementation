@@ -14,7 +14,7 @@
 - 基礎結構
   - [x] 鏈結串列 (Linked List)
   - [x] 堆疊 (Stack)
-  - [ ] 佇列 (Queue)
+  - [x] 佇列 (Queue)
   - [x] 環狀佇列 (Circular Queue)
   - [x] 雙端佇列 (Double-ended Queue, Deque)
   - [ ] 跨越串列 / 跳躍列表 (Skip List)

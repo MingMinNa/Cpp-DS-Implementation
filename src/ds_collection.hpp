@@ -13,3 +13,4 @@
 #include "deap/deap.hpp"
 #include "BST/bst.hpp"
 #include "HBLT/leftist.hpp"
+#include "binomial_heap/binom_heap.hpp"

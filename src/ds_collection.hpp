@@ -14,3 +14,4 @@
 #include "BST/bst.hpp"
 #include "HBLT/leftist.hpp"
 #include "binomial_heap/binom_heap.hpp"
+#include "fibonacci_heap/fib_heap.hpp"

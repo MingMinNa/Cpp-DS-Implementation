@@ -24,7 +24,7 @@
   - [x] 對稱式最小-最大堆積 (Symmetric Min-Max Heap, SMMH)
   - [x] 雙端堆積 (Double-ended Heap, Deap)
   - [x] 二項堆 (Binomial Heap)
-  - [ ] 費波那契堆 (Fibonacci Heap)
+  - [x] 費波那契堆 (Fibonacci Heap)
   - [ ] 配對堆 (Pairing Heap)
   - [ ] Treap (Tree + Heap)
 - 樹與衍生

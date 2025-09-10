@@ -5,6 +5,7 @@
 #include "queue/queue.hpp"
 #include "circular_queue/circular_queue.hpp"
 #include "linked_list/linked_list.hpp"
+#include "skip_list/skip_list.hpp"
 #include "DSU/disjoint_set.hpp"
 #include "heap/heap.hpp"
 #include "MMH/mmh.hpp"

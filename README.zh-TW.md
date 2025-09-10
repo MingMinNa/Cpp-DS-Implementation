@@ -17,7 +17,7 @@
   - [x] 佇列 (Queue)
   - [x] 環狀佇列 (Circular Queue)
   - [x] 雙端佇列 (Double-ended Queue, Deque)
-  - [ ] 跨越串列 / 跳躍列表 (Skip List)
+  - [x] 跨越串列 / 跳躍列表 (Skip List)
 - 堆與衍生
   - [x] 堆積 (Min Heap / Max Heap)
   - [x] 最小-最大堆積 (Min-Max Heap, MMH)

@@ -13,64 +13,65 @@
 namespace ds_imp {
 
 template <typename T>
-struct BinomNode;
+struct FibNode;
 
 template <typename T>
-BinomNode<T>* merge_root(BinomNode<T>* node_x, BinomNode<T>* node_y);
+FibNode<T>* merge_root(FibNode<T>* node_x, FibNode<T>* node_y);
 
 template <typename T>
-BinomNode<T>* combine_link(BinomNode<T>* node_x, BinomNode<T>* node_y);
+FibNode<T>* combine_link(FibNode<T>* node_x, FibNode<T>* node_y);
 
 template <typename T>
-struct BinomNode {
+struct FibNode {
     bool has_show;
+    bool marked;
     T element;
     size_t degree;
     size_t num_nodes;
-    BinomNode<T> *left_sib;
-    BinomNode<T> *right_sib;
-    BinomNode<T> *parent;
-    BinomNode<T> *children;
+    FibNode<T> *left_sib;
+    FibNode<T> *right_sib;
+    FibNode<T> *parent;
+    FibNode<T> *children;
 
     /* Constructor */
-    BinomNode(
+    FibNode(
         const T &ele = T(), 
-        BinomNode<T>* parent = nullptr,
-        BinomNode<T>* child  = nullptr,
-        BinomNode<T>* left   = nullptr, 
-        BinomNode<T>* right  = nullptr, 
+        FibNode<T>* parent = nullptr,
+        FibNode<T>* child  = nullptr,
+        FibNode<T>* left   = nullptr, 
+        FibNode<T>* right  = nullptr, 
         size_t degree = 0,
         size_t num_nodes = 1
     );
-    BinomNode(
+    FibNode(
         T &&ele, 
-        BinomNode<T>* parent = nullptr,
-        BinomNode<T>* child  = nullptr,
-        BinomNode<T>* left   = nullptr, 
-        BinomNode<T>* right  = nullptr, 
+        FibNode<T>* parent = nullptr,
+        FibNode<T>* child  = nullptr,
+        FibNode<T>* left   = nullptr, 
+        FibNode<T>* right  = nullptr, 
         size_t degree = 0,
         size_t num_nodes = 1
     );
 
     /* Destructor */
-    ~BinomNode();
+    ~FibNode();
 
     void cut_sibling();
-    BinomNode<T>* find_min_sibling();
+    FibNode<T>* find_min_sibling();
     void show(std::ostream &os);
 
-    friend BinomNode<T>* merge_root<T>(BinomNode<T>* node_x, BinomNode<T>* node_y);
-    friend BinomNode<T>* combine_link<T>(BinomNode<T>* node_x, BinomNode<T>* node_y);
+    friend FibNode<T>* merge_root<T>(FibNode<T>* node_x, FibNode<T>* node_y);
+    friend FibNode<T>* combine_link<T>(FibNode<T>* node_x, FibNode<T>* node_y);
 };
 
 template <typename T> 
-class BinomHeap {
+class FibHeap {
 
     using Result = std::variant<std::nullptr_t, T>;
 
     public:
-        BinomHeap();
-        ~BinomHeap();
+        FibHeap();
+        ~FibHeap();
 
         Result get_min();
         void insert_node(const T  &ele);
@@ -86,8 +87,8 @@ class BinomHeap {
         static const size_t MAX_BUCKET = 10;
     
     private:
-        BinomNode<T> *root;
-        std::unordered_map<T, std::set<BinomNode<T>*>> hash_table;
+        FibNode<T> *root;
+        std::unordered_map<T, std::set<FibNode<T>*>> hash_table;
         size_t num_nodes;
 
         inline size_t map_index(const T &ele) const;
@@ -99,41 +100,43 @@ class BinomHeap {
 /* Implementation */
 namespace ds_imp {
 
-/* BinomNode */
+/* FibNode */
 template <typename T>
-BinomNode<T>::BinomNode(
-    const T &ele        , 
-    BinomNode<T>* parent,
-    BinomNode<T>* child ,
-    BinomNode<T>* left  , 
-    BinomNode<T>* right , 
+FibNode<T>::FibNode(
+    const T &ele      , 
+    FibNode<T>* parent,
+    FibNode<T>* child ,
+    FibNode<T>* left  , 
+    FibNode<T>* right , 
     size_t degree,
     size_t num_nodes
 ) : element(ele)  , degree(degree) , num_nodes(num_nodes), 
     parent(parent), children(child) {
+    marked    = false;
     has_show  = false;
     left_sib  = ( left == nullptr) ? (this) : (left);
     right_sib = (right == nullptr) ? (this) : (right);
 }
 
 template <typename T>
-BinomNode<T>::BinomNode(
-    T &&ele             , 
-    BinomNode<T>* parent,
-    BinomNode<T>* child ,
-    BinomNode<T>* left  , 
-    BinomNode<T>* right , 
+FibNode<T>::FibNode(
+    T &&ele           , 
+    FibNode<T>* parent,
+    FibNode<T>* child ,
+    FibNode<T>* left  , 
+    FibNode<T>* right , 
     size_t degree,
     size_t num_nodes
 ) : element(std::move(ele)), degree(degree) , num_nodes(num_nodes), 
     parent(parent)         , children(child) {
+    marked    = false;
     has_show  = false;
     left_sib  = ( left == nullptr) ? (this) : (left);
     right_sib = (right == nullptr) ? (this) : (right);
 }
 
 template <typename T>
-BinomNode<T>::~BinomNode() {
+FibNode<T>::~FibNode() {
 
     if(left_sib != nullptr)
         left_sib->right_sib = nullptr;
@@ -142,7 +145,7 @@ BinomNode<T>::~BinomNode() {
 }
 
 template <typename T>
-void BinomNode<T>::cut_sibling() {
+void FibNode<T>::cut_sibling() {
 
     left_sib->right_sib = right_sib;
     right_sib->left_sib = left_sib;
@@ -151,7 +154,7 @@ void BinomNode<T>::cut_sibling() {
 }
 
 template <typename T>
-BinomNode<T>* BinomNode<T>::find_min_sibling() {
+FibNode<T>* FibNode<T>::find_min_sibling() {
 
     decltype(this) curr = this, min_ptr = this;
     do {
@@ -163,7 +166,7 @@ BinomNode<T>* BinomNode<T>::find_min_sibling() {
 }
 
 template <typename T>
-void BinomNode<T>::show(std::ostream &os) {
+void FibNode<T>::show(std::ostream &os) {
 
     if(has_show)
         return;
@@ -189,7 +192,9 @@ void BinomNode<T>::show(std::ostream &os) {
     os << "Children: ";
     if (!children)  os << "null";
     else            os << std::left << std::setw(4) << children->element;
-    os << std::endl;
+    os << ", ";
+
+    os << "Marked: " << marked << std::endl;
 
     has_show = true;
     if (children)  children->show(os);
@@ -200,10 +205,10 @@ void BinomNode<T>::show(std::ostream &os) {
 }
 
 template <typename T>
-BinomNode<T>* merge_root(BinomNode<T>* node_x, BinomNode<T>* node_y) {
+FibNode<T>* merge_root(FibNode<T>* node_x, FibNode<T>* node_y) {
 
     using NodePtr = decltype(node_x);
-    const auto MAX_DEGREE = BinomHeap<T>::MAX_DEGREE;
+    const auto MAX_DEGREE = FibHeap<T>::MAX_DEGREE;
 
     NodePtr new_root = combine_link<T>(node_x, node_y);
 
@@ -252,7 +257,7 @@ BinomNode<T>* merge_root(BinomNode<T>* node_x, BinomNode<T>* node_y) {
 }
 
 template <typename T>
-BinomNode<T>* combine_link(BinomNode<T>* node_x, BinomNode<T>* node_y) {
+FibNode<T>* combine_link(FibNode<T>* node_x, FibNode<T>* node_y) {
 
     if     (node_x == nullptr) return node_y;
     else if(node_y == nullptr) return node_x;
@@ -268,23 +273,23 @@ BinomNode<T>* combine_link(BinomNode<T>* node_x, BinomNode<T>* node_y) {
     return root_ptr;
 }
 
-/* BinomHeap */
+/* FibHeap */
 template <typename T>
-BinomHeap<T>::BinomHeap() {
+FibHeap<T>::FibHeap() {
 
     this->num_nodes = 0;
     this->root = nullptr;
 }
 
 template <typename T>
-BinomHeap<T>::~BinomHeap() {
+FibHeap<T>::~FibHeap() {
 
     if(root != nullptr)
         delete root;
 }
 
 template <typename T>
-BinomHeap<T>::Result BinomHeap<T>::get_min() {
+FibHeap<T>::Result FibHeap<T>::get_min() {
 
     if(empty())
         return nullptr;
@@ -292,29 +297,29 @@ BinomHeap<T>::Result BinomHeap<T>::get_min() {
 }
 
 template <typename T>
-void BinomHeap<T>::insert_node(const T  &ele) {
+void FibHeap<T>::insert_node(const T  &ele) {
 
-    BinomNode<T> *new_node = new BinomNode<T>(ele);
+    FibNode<T> *new_node = new FibNode<T>(ele);
     hash_table[map_index(ele)].insert(new_node);
     num_nodes++;
     
-    root = merge_root(root, new_node);
+    root = combine_link(root, new_node);
     return;
 }
 
 template <typename T>
-void BinomHeap<T>::insert_node(T &&ele) {
+void FibHeap<T>::insert_node(T &&ele) {
 
-    BinomNode<T> *new_node = new BinomNode<T>(std::move(ele));
+    FibNode<T> *new_node = new FibNode<T>(std::move(ele));
     hash_table[map_index(ele)].insert(new_node);
     num_nodes++;
     
-    root = merge_root(root, new_node);
+    root = combine_link(root, new_node);
     return;
 }
 
 template <typename T>
-void BinomHeap<T>::delete_min() {
+void FibHeap<T>::delete_min() {
 
     if(empty())
         return;
@@ -330,8 +335,8 @@ void BinomHeap<T>::delete_min() {
 
     num_nodes--;
     decltype(root) temp_node = root;
-    decltype(root) children = temp_node->children;
-    decltype(root)  sibling = temp_node->left_sib;
+    decltype(root) children  = temp_node->children;
+    decltype(root)  sibling  = temp_node->left_sib;
     temp_node->children = nullptr;
     temp_node->parent = nullptr;
 
@@ -339,6 +344,7 @@ void BinomHeap<T>::delete_min() {
     
     if(ptr != nullptr) {
         do {
+            ptr->marked = false;
             ptr->parent = nullptr;
             ptr = ptr->left_sib;
         } while(ptr != children);
@@ -359,7 +365,7 @@ void BinomHeap<T>::delete_min() {
 }
 
 template <typename T>
-void BinomHeap<T>::decrease_node(const T &ele, const T &new_ele) {
+void FibHeap<T>::decrease_node(const T &ele, const T &new_ele) {
 
     if(new_ele >= ele || empty())
         return;
@@ -386,25 +392,41 @@ void BinomHeap<T>::decrease_node(const T &ele, const T &new_ele) {
     hash_table[map_index(curr->element)].insert(curr);
 
     auto parent = curr->parent;
+    auto sibling = curr->left_sib;
 
-    while(parent != nullptr && curr->element < parent->element) {
+    if(parent != nullptr) {
 
-        hash_table[map_index(curr->element)].erase(curr);
-        hash_table[map_index(parent->element)].erase(parent);
-        
-        T temp_element  = std::move(curr->element);
-        curr->element   = std::move(parent->element);
-        parent->element = std::move(temp_element);
+        if(parent->element <= curr->element) 
+            return;
 
-        hash_table[map_index(curr->element)].insert(curr);
-        hash_table[map_index(parent->element)].insert(parent);
-
-        parent->children = curr;
-        curr = parent;
-        parent = curr->parent;
+        curr->marked = false;
+        curr->parent = nullptr;
+        (parent->degree) --;
+        curr->cut_sibling();
+        parent->children = (sibling == curr) ? (nullptr) : (sibling->find_min_sibling());
+        root = combine_link(root, curr);
     }
 
-    if(parent == nullptr && curr->element < root->element) {
+    while(parent != nullptr && parent->parent != nullptr && parent->marked) {
+
+        decltype(parent) grandparent = parent->parent;
+        (grandparent->degree) --;
+        sibling = parent->left_sib;
+        
+        parent->cut_sibling();
+        grandparent->children = (sibling == parent) ? (nullptr) : (sibling->find_min_sibling());
+        parent->marked = false;
+        parent->parent = nullptr;
+        root = combine_link(root, parent);
+        
+        parent = grandparent;
+    }
+
+    if(parent && parent->parent) {
+        parent->marked = true;
+    }
+
+    if(curr->element < root->element) {
         root = curr;
     }
 
@@ -412,7 +434,7 @@ void BinomHeap<T>::decrease_node(const T &ele, const T &new_ele) {
 }
 
 template <typename T>
-void BinomHeap<T>::decrease_node(const T &ele, const T &&new_ele) {
+void FibHeap<T>::decrease_node(const T &ele, const T &&new_ele) {
 
     if(new_ele >= ele || empty())
         return;
@@ -439,25 +461,41 @@ void BinomHeap<T>::decrease_node(const T &ele, const T &&new_ele) {
     hash_table[map_index(curr->element)].insert(curr);
 
     auto parent = curr->parent;
+    auto sibling = curr->left_sib;
 
-    while(parent != nullptr && curr->element < parent->element) {
+    if(parent != nullptr) {
 
-        hash_table[map_index(curr->element)].erase(curr);
-        hash_table[map_index(parent->element)].erase(parent);
-        
-        T temp_element  = std::move(curr->element);
-        curr->element   = std::move(parent->element);
-        parent->element = std::move(temp_element);
+        if(parent->element <= curr->element) 
+            return;
 
-        hash_table[map_index(curr->element)].insert(curr);
-        hash_table[map_index(parent->element)].insert(parent);
-
-        parent->children = curr;
-        curr = parent;
-        parent = curr->parent;
+        curr->marked = false;
+        curr->parent = nullptr;
+        (parent->degree) --;
+        curr->cut_sibling();
+        parent->children = (sibling == curr) ? (nullptr) : (sibling->find_min_sibling());
+        root = combine_link(root, curr);
     }
 
-    if(parent == nullptr && curr->element < root->element) {
+    while(parent != nullptr && parent->parent != nullptr && parent->marked) {
+
+        decltype(parent) grandparent = parent->parent;
+        (grandparent->degree) --;
+        sibling = parent->left_sib;
+        
+        parent->cut_sibling();
+        grandparent->children = (sibling == parent) ? (nullptr) : (sibling->find_min_sibling());
+        parent->marked = false;
+        parent->parent = nullptr;
+        root = combine_link(root, parent);
+        
+        parent = grandparent;
+    }
+
+    if(parent && parent->parent) {
+        parent->marked = true;
+    }
+
+    if(curr->element < root->element) {
         root = curr;
     }
 
@@ -465,7 +503,7 @@ void BinomHeap<T>::decrease_node(const T &ele, const T &&new_ele) {
 }
 
 template <typename T>
-void BinomHeap<T>::show(std::ostream &os) {
+void FibHeap<T>::show(std::ostream &os) {
 
     os << "The number of nodes: " << num_nodes << std::endl;
     root->show(os);
@@ -480,23 +518,23 @@ void BinomHeap<T>::show(std::ostream &os) {
 }
 
 template <typename T>
-inline bool BinomHeap<T>::empty() const {
+inline bool FibHeap<T>::empty() const {
     return (size() == 0);
 }
 
 template <typename T>
-inline size_t BinomHeap<T>::size() const {
+inline size_t FibHeap<T>::size() const {
     return num_nodes;
 }
 
 template <typename T>
-inline size_t BinomHeap<T>::map_index(const T &ele) const {
-    return std::hash<T>()(ele) % BinomHeap<T>::MAX_BUCKET;
+inline size_t FibHeap<T>::map_index(const T &ele) const {
+    return std::hash<T>()(ele) % FibHeap<T>::MAX_BUCKET;
 }
 
 template <typename T>
-inline size_t BinomHeap<T>::map_index(T &&ele) const {
-    return std::hash<T>()(ele) % BinomHeap<T>::MAX_BUCKET;
+inline size_t FibHeap<T>::map_index(T &&ele) const {
+    return std::hash<T>()(ele) % FibHeap<T>::MAX_BUCKET;
 }
 
 }

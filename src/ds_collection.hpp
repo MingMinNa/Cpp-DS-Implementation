@@ -5,6 +5,7 @@
 #include "queue/queue.hpp"
 #include "circular_queue/circular_queue.hpp"
 #include "linked_list/linked_list.hpp"
+#include "skip_list/skip_list.hpp"
 #include "DSU/disjoint_set.hpp"
 #include "heap/heap.hpp"
 #include "MMH/mmh.hpp"
@@ -14,3 +15,4 @@
 #include "BST/bst.hpp"
 #include "HBLT/leftist.hpp"
 #include "binomial_heap/binom_heap.hpp"
+#include "fibonacci_heap/fib_heap.hpp"

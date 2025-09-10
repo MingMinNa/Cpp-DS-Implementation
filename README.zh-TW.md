@@ -17,14 +17,14 @@
   - [x] 佇列 (Queue)
   - [x] 環狀佇列 (Circular Queue)
   - [x] 雙端佇列 (Double-ended Queue, Deque)
-  - [ ] 跨越串列 / 跳躍列表 (Skip List)
+  - [x] 跨越串列 / 跳躍列表 (Skip List)
 - 堆與衍生
   - [x] 堆積 (Min Heap / Max Heap)
   - [x] 最小-最大堆積 (Min-Max Heap, MMH)
   - [x] 對稱式最小-最大堆積 (Symmetric Min-Max Heap, SMMH)
   - [x] 雙端堆積 (Double-ended Heap, Deap)
   - [x] 二項堆 (Binomial Heap)
-  - [ ] 費波那契堆 (Fibonacci Heap)
+  - [x] 費波那契堆 (Fibonacci Heap)
   - [ ] 配對堆 (Pairing Heap)
   - [ ] Treap (Tree + Heap)
 - 樹與衍生

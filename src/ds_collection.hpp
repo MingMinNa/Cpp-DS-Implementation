@@ -1,18 +1,28 @@
 #pragma once
 
 #include "element.hpp"
-#include "stack/stack.hpp"
-#include "queue/queue.hpp"
-#include "circular_queue/circular_queue.hpp"
-#include "linked_list/linked_list.hpp"
-#include "skip_list/skip_list.hpp"
-#include "DSU/disjoint_set.hpp"
+
+/* Baisc */
+#include "basic/linked_list.hpp"
+#include "basic/stack.hpp"
+#include "basic/queue.hpp"
+#include "basic/circular_queue.hpp"
+#include "basic/deque.hpp"
+#include "basic/skip_list.hpp"
+
+/* Heap */
 #include "heap/heap.hpp"
-#include "MMH/mmh.hpp"
-#include "SMMH/smmh.hpp"
-#include "deque/deque.hpp"
-#include "deap/deap.hpp"
-#include "BST/bst.hpp"
-#include "HBLT/leftist.hpp"
-#include "binomial_heap/binom_heap.hpp"
-#include "fibonacci_heap/fib_heap.hpp"
+#include "heap/mmh.hpp"
+#include "heap/smmh.hpp"
+#include "heap/deap.hpp"
+#include "heap/binom_heap.hpp"
+#include "heap/fib_heap.hpp"
+
+/* Tree */
+#include "tree/bst.hpp"
+#include "tree/leftist.hpp"
+
+/* Hash */
+
+/* Others */
+#include "others/disjoint_set.hpp"

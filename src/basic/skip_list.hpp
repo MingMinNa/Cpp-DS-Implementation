@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../linked_list/linked_list.hpp"
+#include "linked_list.hpp"
 #include <stdexcept>
 #include <cstdint>
 #include <cassert>

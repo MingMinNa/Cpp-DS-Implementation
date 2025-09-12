@@ -51,7 +51,7 @@ class Element {
         int32_t val;
 };
 
-
+inline const Element UNIT_ELEMENT(1);
 inline const Element MAX_ELEMENT(INT32_MAX);
 inline const Element MIN_ELEMENT(INT32_MIN);
 inline const Element DEFAULT_ELEMENT(0);

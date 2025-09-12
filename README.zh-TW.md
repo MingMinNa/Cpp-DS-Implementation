@@ -26,11 +26,12 @@
   - [x] 二項堆 (Binomial Heap)
   - [x] 費波那契堆 (Fibonacci Heap)
   - [ ] 配對堆 (Pairing Heap)
-  - [ ] Treap (Tree + Heap)
+  - [x] 樹堆 (Tree + Heap, Treap)<sub>[1]</sub>
 - 樹與衍生
   - [x] 二元搜尋樹 (Binary Search Tree, BST)
   - [x] 左偏樹 (Leftist Tree, HBLT)
-  - [ ] AVL 樹 (AVL Tree)
+  - [x] AVL 樹 (AVL Tree)
+  - [ ] 2-3 樹 (2-3 Tree)
   - [ ] 紅黑樹 (Red-Black Tree)
   - [ ] B 樹 / B+ 樹 (B-Tree / B+ Tree)
   - [ ] 伸展樹 (Splay Tree)
@@ -44,6 +45,9 @@
   - [ ] 完美哈希 (Perfect Hashing)
 - 其他
   - [x] 併查集 (Disjoint Set, DSU)
-  - [ ] 布隆過濾器 (Bloom Filter)
+  - [x] 布隆過濾器 (Bloom Filter)
+
+## 備註
+[1] **Treap** 使用 Merge-Split 方法實作，檔案名稱為 `ms_treap.hpp`。
 
 ⚠ 目前僅以簡單測試驗證功能，後續將撰寫完整測試程式以確保正確性。

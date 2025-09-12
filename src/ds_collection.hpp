@@ -17,12 +17,15 @@
 #include "heap/deap.hpp"
 #include "heap/binom_heap.hpp"
 #include "heap/fib_heap.hpp"
+#include "heap/ms_treap.hpp"
 
 /* Tree */
 #include "tree/bst.hpp"
 #include "tree/leftist.hpp"
+#include "tree/avl_tree.hpp"
 
 /* Hash */
 
 /* Others */
 #include "others/disjoint_set.hpp"
+#include "others/bloom_filter.hpp"

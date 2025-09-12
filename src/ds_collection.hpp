@@ -26,3 +26,4 @@
 
 /* Others */
 #include "others/disjoint_set.hpp"
+#include "others/bloom_filter.hpp"

@@ -31,6 +31,7 @@
   - [x] 二元搜尋樹 (Binary Search Tree, BST)
   - [x] 左偏樹 (Leftist Tree, HBLT)
   - [ ] AVL 樹 (AVL Tree)
+  - [ ] 2-3 樹 (2-3 Tree)
   - [ ] 紅黑樹 (Red-Black Tree)
   - [ ] B 樹 / B+ 樹 (B-Tree / B+ Tree)
   - [ ] 伸展樹 (Splay Tree)
@@ -44,6 +45,6 @@
   - [ ] 完美哈希 (Perfect Hashing)
 - 其他
   - [x] 併查集 (Disjoint Set, DSU)
-  - [ ] 布隆過濾器 (Bloom Filter)
+  - [x] 布隆過濾器 (Bloom Filter)
 
 ⚠ 目前僅以簡單測試驗證功能，後續將撰寫完整測試程式以確保正確性。

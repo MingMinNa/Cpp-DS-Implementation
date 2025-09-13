@@ -17,6 +17,7 @@
 #include "heap/deap.hpp"
 #include "heap/binom_heap.hpp"
 #include "heap/fib_heap.hpp"
+#include "heap/ms_treap.hpp"
 
 /* Tree */
 #include "tree/bst.hpp"

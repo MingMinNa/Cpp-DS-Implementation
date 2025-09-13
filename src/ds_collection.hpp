@@ -21,6 +21,7 @@
 /* Tree */
 #include "tree/bst.hpp"
 #include "tree/leftist.hpp"
+#include "tree/avl_tree.hpp"
 
 /* Hash */
 

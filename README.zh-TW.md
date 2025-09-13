@@ -30,7 +30,7 @@
 - 樹與衍生
   - [x] 二元搜尋樹 (Binary Search Tree, BST)
   - [x] 左偏樹 (Leftist Tree, HBLT)
-  - [ ] AVL 樹 (AVL Tree)
+  - [x] AVL 樹 (AVL Tree)
   - [ ] 2-3 樹 (2-3 Tree)
   - [ ] 紅黑樹 (Red-Black Tree)
   - [ ] B 樹 / B+ 樹 (B-Tree / B+ Tree)
